@@ -9,15 +9,15 @@
     <link rel="stylesheet" href="./assets/style.css" />
 </head>
 <body>
-    <header class="text-center">Weather Dashboard</header>
+    <header class="text-center text-white">Weather Dashboard</header>
     <main>
         <div class="container">
-            <div class="row align-items-start">
+            <div class="row">
                 <div class="col-3">
-                <div class="search">
+                <div class="search pb-1 border-bottom border-secondary">
                     <h2>Search for a City:</h2>
-                    <input class="form" placeholder="City">
-                    <button type="button" class="btn btn-primary" id="search">Search</button>
+                    <input class="p-2 btn-block" type="text" placeholder="City">
+                    <button type="button" class="btn btn-primary btn-block" id="search">Search</button>
                 </div>
                 <div class="saved-city">
                     <ul>
@@ -26,8 +26,7 @@
                 </div>
         </div>
                 <div class="col">
-                <div class="current-forecast">
-                    <img src="">
+                <div class="current-forecast m-1 p-0 border border-dark">
                     <div class="card-body" id="current-day">
                         <h3 class="card-title" id="current-city">Current City</h3>
                         <p class="card-text" id="current-temp">Temp: </p>
@@ -36,12 +35,12 @@
                         <p class="card-text" id="current-uv">UV Index: </p>
                     </div>
                 </div>
-                <div class="five-day-forecast row">
-                    <h3>5-Day Forecast:</h3>
+                <div class="five-day-forecast row justify-content-center">
+                    <h3 class=>5-Day Forecast:</h3>
                     </div>
                     <div class="row">
                     <div class="col">
-                    <div class="card">
+                    <div class="card text-white bg-dark">
                         <div class="date-day-1"></div>
                         <img src="">
                         <div class="card-body" id="day-1">
@@ -53,7 +52,7 @@
                     </div>
                     </div>
                     <div class="col">
-                    <div class="card">
+                    <div class="card text-white bg-dark">
                         <div class="date-day-2"></div>
                         <img src="">
                         <div class="card-body" id="day-2">
@@ -65,7 +64,7 @@
                     </div>
                     </div>
                     <div class="col">
-                    <div class="card">
+                    <div class="card text-white bg-dark">
                         <div class="date-day-3"></div>
                         <img src="">
                         <div class="card-body" id="day-3">
@@ -77,7 +76,7 @@
                     </div>
                     </div>
                     <div class="col">
-                    <div class="card">
+                    <div class="card text-white bg-dark">
                         <div class="date-day-4"></div>
                         <img src="">
                         <div class="card-body" id="day-4">
@@ -89,7 +88,7 @@
                     </div>
                     </div>
                     <div class="col">
-                    <div class="card">
+                    <div class="card text-white bg-dark">
                         <div class="date-day-5"></div>
                         <img src="">
                         <div class="card-body" id="day-5">
