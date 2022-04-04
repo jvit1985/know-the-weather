@@ -7,6 +7,7 @@ var currentWindEl = document.querySelector("#current-wind");
 var currentHumidityEl = document.querySelector("#current-humidity");
 var currentUvEl = document.querySelector("#current-uv");
 var cardFormEl = document.querySelector("#card-form");
+var date = dayjs().format("MM/DD/YYYY");
 
 //Get city name from search input from user
 var convertToLatandLon = function(searchedCityEl) {
@@ -51,6 +52,11 @@ var getCurrentForecast = function(lat, lon) {
                     var card = document.createElement("div")
                     card.className = "card-body m-1 text-white bg-dark";
                     card.id = "day[i]";
+                    var tempDate = dayjs().add([i], 'day');
+                    var forecastDate = document.createElement("h4");
+                    forecastDate.classList = "card-title";
+                    forecastDate.textContent = dayjs(tempDate).format("MM/DD/YYYY");
+                    console.log(forecastDate.textContent);
                     var forecastTemp = document.createElement("p");
                     forecastTemp.classList = "card-text";
                     forecastTemp.textContent = "Temp: " + data.daily[i].temp.max + " °F";
@@ -61,6 +67,7 @@ var getCurrentForecast = function(lat, lon) {
                     forecastHumidity.classList = "card-text";
                     forecastHumidity.textContent = "Humidity: " + data.daily[i].humidity + " %";
                     cardFormEl.appendChild(card);
+                    card.appendChild(forecastDate);
                     card.appendChild(forecastTemp);
                     card.appendChild(forecastWind);
                     card.appendChild(forecastHumidity);
@@ -73,9 +80,9 @@ var getCurrentForecast = function(lat, lon) {
 };
 
 var displayCity = function(city) {
-    currentCityEl.textContent = city;
+    currentCityEl.textContent = city + " (" + date + ")";
     var savedCity = document.createElement("button");
-    savedCity.textContent = currentCityEl.textContent;
+    savedCity.textContent = city;
     savedCity.classList = "btn btn-secondary btn-block";
     savedCityEl.appendChild(savedCity);
          
