@@ -49,13 +49,16 @@ var getCurrentForecast = function(lat, lon) {
 
                 for (var i = 1; i < 6; i++) {
                     var card = document.createElement("div")
-                    card.className = "card-body";
+                    card.className = "card-body m-1 text-white bg-dark";
                     card.id = "day[i]";
                     var forecastTemp = document.createElement("p");
+                    forecastTemp.classList = "card-text";
                     forecastTemp.textContent = "Temp: " + data.daily[i].temp.max + " °F";
                     var forecastWind = document.createElement("p");
+                    forecastWind.classList = "card-text";
                     forecastWind.textContent = "Wind: " + data.daily[i].wind_speed + " MPH";
                     var forecastHumidity = document.createElement("p");
+                    forecastHumidity.classList = "card-text";
                     forecastHumidity.textContent = "Humidity: " + data.daily[i].humidity + " %";
                     cardFormEl.appendChild(card);
                     card.appendChild(forecastTemp);
