@@ -66,12 +66,10 @@ var displayCity = function(city) {
     currentCityEl.textContent = city;
     var savedCity = document.createElement("button");
     savedCity.textContent = city;
-    savedCity.classList = "list-item flex-row justify-space-between align-center btn-block btn-secondary";
+    savedCity.classList = "btn btn-secondary btn-block";
     savedCityEl.appendChild(savedCity);
-
-    localStorage.setItem(savedCity, city);
          
-         searchedCityEl.value = "";
+    searchedCityEl.value = "";
 }
 
 var buttonClickHandler = function(event) {
@@ -86,7 +84,14 @@ var buttonClickHandler = function(event) {
     }
 };
 
+var savedCityClickHandler = function(event) {
+
+    console.log(savedCityEl);
+
+}
+
 //event listener for search button click
 searchButtonEl.addEventListener("click", buttonClickHandler);
 
 //event listener for stored searches click
+savedCityEl.addEventListener("click", savedCityClickHandler);
