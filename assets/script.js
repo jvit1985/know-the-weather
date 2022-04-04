@@ -38,6 +38,13 @@ var getCurrentForecast = function(lat, lon) {
                 currentTempEl.textContent = "Temp: " + data.daily[0].temp.max + " °F";
                 currentWindEl.textContent = "Wind: " + data.daily[0].wind_speed + " MPH";
                 currentHumidityEl.textContent = "Humidity: " + data.daily[0].humidity + " %";
+                if (data.daily[0].uvi < 3) {
+                    currentUvEl.classList = "p-0 alert alert-success";
+                } else if (data.daily[0].uvi > 6) {
+                    currentUvEl.classList = "p-0 alert alert-danger";
+                } else {
+                    currentUvEl.classList = "p-0 alert alert-warning";
+                };
                 currentUvEl.textContent = "UV Index: " + data.daily[0].uvi;
 
                 for (var i = 1; i < 6; i++) {
@@ -65,7 +72,7 @@ var getCurrentForecast = function(lat, lon) {
 var displayCity = function(city) {
     currentCityEl.textContent = city;
     var savedCity = document.createElement("button");
-    savedCity.textContent = city;
+    savedCity.textContent = currentCityEl.textContent;
     savedCity.classList = "btn btn-secondary btn-block";
     savedCityEl.appendChild(savedCity);
          
@@ -86,7 +93,7 @@ var buttonClickHandler = function(event) {
 
 var savedCityClickHandler = function(event) {
 
-    console.log(savedCityEl);
+    console.log(savedCityEl.textContent);
 
 }
 
