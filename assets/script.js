@@ -6,6 +6,7 @@ var currentCityEl = document.querySelector("#current-city");
 var currentWindEl = document.querySelector("#current-wind");
 var currentHumidityEl = document.querySelector("#current-humidity");
 var currentUvEl = document.querySelector("#current-uv");
+var cardFormEl = document.querySelector("#card-form");
 
 //Get city name from search input from user
 var convertToLatandLon = function(searchedCityEl) {
@@ -34,13 +35,26 @@ var getCurrentForecast = function(lat, lon) {
     fetch (latAndLon).then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
-                console.log(data);
-                //displayForecast(data.daily[i].temp.max, data.daily[i].wind_speed, data.daily[i].humidity);
                 currentTempEl.textContent = "Temp: " + data.daily[0].temp.max + " °F";
                 currentWindEl.textContent = "Wind: " + data.daily[0].wind_speed + " MPH";
                 currentHumidityEl.textContent = "Humidity: " + data.daily[0].humidity + " %";
                 currentUvEl.textContent = "UV Index: " + data.daily[0].uvi;
-               // console.log(data.daily[i].temp.max, data.daily[i].wind_speed, data.daily[i].humidity, data.daily[i].uvi);
+
+                for (var i = 1; i < 6; i++) {
+                    var card = document.createElement("div")
+                    card.className = "card-body";
+                    card.id = "day[i]";
+                    var forecastTemp = document.createElement("p");
+                    forecastTemp.textContent = "Temp: " + data.daily[i].temp.max + " °F";
+                    var forecastWind = document.createElement("p");
+                    forecastWind.textContent = "Wind: " + data.daily[i].wind_speed + " MPH";
+                    var forecastHumidity = document.createElement("p");
+                    forecastHumidity.textContent = "Humidity: " + data.daily[i].humidity + " %";
+                    cardFormEl.appendChild(card);
+                    card.appendChild(forecastTemp);
+                    card.appendChild(forecastWind);
+                    card.appendChild(forecastHumidity);
+                }
             });
         } else {
             alert("No City Found");
@@ -50,73 +64,27 @@ var getCurrentForecast = function(lat, lon) {
 
 var displayCity = function(city) {
     currentCityEl.textContent = city;
+    var savedCity = document.createElement("button");
+    savedCity.textContent = city;
+    savedCity.classList = "list-item flex-row justify-space-between align-center btn-block btn-secondary";
+    savedCityEl.appendChild(savedCity);
+
+    localStorage.setItem(savedCity, city);
+         
+         searchedCityEl.value = "";
 }
 
 var buttonClickHandler = function(event) {
-    event.preventDefault();
 
     var searchedCity = searchedCityEl.value.trim();
 
     if (searchedCity) {
         convertToLatandLon(searchedCity);
-        //searchedCityEl.value = "";
-        var cityEl = document.createElement("button");
-        cityEl.classList = "list-item flex-row justify-space-between align-center btn-block btn-secondary";
-        cityEl.setAttribute("btn", searchedCity);
-        //append to page
-        cityEl.appendChild(savedCityEl);
-        searchedCityEl.value = "";
         
     } else {
         alert("Please enter a valid city");
     }
 };
-
-var displayForecast = function(currentTemp, currentWindSpeed, currentHumidity) {
-    //display current forecast
-    // currentTempEl.textContent = "Temp: " + currentTemp;
-    // currentWindEl.textContent = "Wind: " + currentWindSpeed;
-    // currentHumidityEl.textContent = "Humidity: " + currentHumidity;
-    // currentUvEl.textContent = "UV Index: " + currentUvi;
-
-    for (var i = 1; i < 6; i++) {
-
-        var forecastDate = document.createElement("h4");
-        forecastDate.textContent = date + [i];
-
-        var forecastTemp = document.createElement("p");
-        forecastTemp.textContent = "Temp: " + currentTemp[i];
-
-        var forecastWind = document.createElement("p");
-        forecastWind.textContent = "Wind: " + currentWindSpeed[i];
-        
-        var forecastHumidity = document.createElement("p");
-        forecastHumidity.textContent = "Humidity: " + currentHumidity[i];
-
-        // var forecastDate = document.createElement("h4");
-        // forecastDate.textContent = date + [i];
-
-        cardBodyEl.appendChild(forecastTemp);
-        cardBodyEl.appendChild(forecastWind);
-        cardBodyEl.appendChild(forecastHumidity);
-        
-    }
-
-    //create and display currentTemp element to page
-    
-    //create and display currentWindSpeed element to page
-
-    //create and display currentHumidity element to page
-
-    //create and display currentUvi element to page
-    
-
-};
-
-//display 5 day forecast
-
-//call functions
-//getCurrentForecast();
 
 //event listener for search button click
 searchButtonEl.addEventListener("click", buttonClickHandler);

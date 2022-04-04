@@ -19,16 +19,14 @@
                     <input class="p-2 btn-block form-input" type="text" id="searched-city">
                     <button type="button" class="btn btn-primary btn-block" id="search-button">Search</button>
                 </div>
-                <div class="saved-city" id="saved-city">
-                    <ul>
-
-                    </ul>
+                <div class="saved">
+                    <ul id="saved-city"></ul>
                 </div>
         </div>
                 <div class="col-9">
                 <div class="current-forecast m-1 p-0 border border-dark">
                     <div class="card-body" id="current-day">
-                        <h3 class="card-title" id="current-city">Current City and Date</h3>
+                        <h3 class="card-title" id="current-city"></h3>
                         <p class="card-text" id="current-temp">Temp: </p>
                         <p class="card-text" id="current-wind">Wind: </p>
                         <p class="card-text" id="current-humidity">Humidity: </p>
@@ -38,65 +36,9 @@
                 <div class="five-day-forecast row justify-content-center">
                     <h3 class=>5-Day Forecast:</h3>
                     </div>
-                    <div class="row p-0 m-0">
+                    <div class="col p-0 m-0">
                     <div class="col justify-content-space-around">
-                    <div class="card text-white bg-dark">
-                        <div class="date-day-1"></div>
-                        <img src="">
-                        <div class="card-body" id="day-1">
-                            <h5 class="card-title1">Date</h5>
-                            <p class="card-text-temp1">Temp: </p>
-                            <p class="card-text-wind1">Wind: </p>
-                            <p class="card-text-humidity1">Humidity: </p>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col justify-content-space-around">
-                    <div class="card text-white bg-dark">
-                        <div class="date-day-2"></div>
-                        <img src="">
-                        <div class="card-body" id="day-2">
-                            <h5 class="card-title2">Date</h5>
-                            <p class="card-text-temp2">Temp: </p>
-                            <p class="card-text-wind2">Wind: </p>
-                            <p class="card-text-humidity2">Humidity: </p>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col justify-content-space-around">
-                    <div class="card text-white bg-dark">
-                        <div class="date-day-3"></div>
-                        <img src="">
-                        <div class="card-body" id="day-3">
-                            <h5 class="card-title3">Date</h5>
-                            <p class="card-text-temp3">Temp: </p>
-                            <p class="card-text-wind3">Wind: </p>
-                            <p class="card-text-humidity3">Humidity: </p>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col justify-content-space-around">
-                    <div class="card text-white bg-dark">
-                        <div class="date-day-4"></div>
-                        <img src="">
-                        <div class="card-body" id="day-4">
-                            <h5 class="card-title4">Date</h5>
-                            <p class="card-text-temp4">Temp: </p>
-                            <p class="card-text-wind4">Wind: </p>
-                            <p class="card-text-humidity4">Humidity: </p>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col justify-content-space-around">
-                    <div class="card text-white bg-dark">
-                        <div class="date-day-5"></div>
-                        <img src="">
-                        <div class="card-body" id="day-5">
-                            <h5 class="card-title5">Date</h5>
-                            <p class="card-text-temp5">Temp: </p>
-                            <p class="card-text-wind5">Wind: </p>
-                            <p class="card-text-humidity5">Humidity: </p>
-                        </div>
+                    <div class="card text-white bg-dark" id="card-form">
                     </div>
                     </div>
                 </div>
