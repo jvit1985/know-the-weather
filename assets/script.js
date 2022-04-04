@@ -29,7 +29,7 @@ var convertToLatandLon = function(searchedCityEl) {
     });
 };
 
-
+// display Current and 5-day forecast
 var getCurrentForecast = function(lat, lon) {
     var latAndLon = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=85128827aad4fb15f19c4556286ccef6";
 
@@ -39,6 +39,7 @@ var getCurrentForecast = function(lat, lon) {
                 currentTempEl.textContent = "Temp: " + data.daily[0].temp.max + " °F";
                 currentWindEl.textContent = "Wind: " + data.daily[0].wind_speed + " MPH";
                 currentHumidityEl.textContent = "Humidity: " + data.daily[0].humidity + " %";
+                //check if UV Index is low, moderate, or high
                 if (data.daily[0].uvi < 3) {
                     currentUvEl.classList = "p-0 alert alert-success";
                 } else if (data.daily[0].uvi > 6) {
@@ -47,7 +48,7 @@ var getCurrentForecast = function(lat, lon) {
                     currentUvEl.classList = "p-0 alert alert-warning";
                 };
                 currentUvEl.textContent = "UV Index: " + data.daily[0].uvi;
-
+                //loop through daily api data and generate 5 day forecast data
                 for (var i = 1; i < 6; i++) {
                     var card = document.createElement("div")
                     card.className = "card-body m-1 text-white bg-dark";
@@ -56,7 +57,6 @@ var getCurrentForecast = function(lat, lon) {
                     var forecastDate = document.createElement("h4");
                     forecastDate.classList = "card-title";
                     forecastDate.textContent = dayjs(tempDate).format("MM/DD/YYYY");
-                    console.log(forecastDate.textContent);
                     var forecastTemp = document.createElement("p");
                     forecastTemp.classList = "card-text";
                     forecastTemp.textContent = "Temp: " + data.daily[i].temp.max + " °F";
@@ -66,6 +66,7 @@ var getCurrentForecast = function(lat, lon) {
                     var forecastHumidity = document.createElement("p");
                     forecastHumidity.classList = "card-text";
                     forecastHumidity.textContent = "Humidity: " + data.daily[i].humidity + " %";
+                    //append generated data to 5 day forecast cards
                     cardFormEl.appendChild(card);
                     card.appendChild(forecastDate);
                     card.appendChild(forecastTemp);
@@ -80,15 +81,19 @@ var getCurrentForecast = function(lat, lon) {
 };
 
 var displayCity = function(city) {
+    //display city and date
     currentCityEl.textContent = city + " (" + date + ")";
+    //create saved city button
     var savedCity = document.createElement("button");
     savedCity.textContent = city;
     savedCity.classList = "btn btn-secondary btn-block";
+    //display saved city button to page
     savedCityEl.appendChild(savedCity);
-         
+    //reset search for city input field     
     searchedCityEl.value = "";
 }
 
+//function to search for city name in api on click
 var buttonClickHandler = function(event) {
 
     var searchedCity = searchedCityEl.value.trim();
@@ -101,6 +106,7 @@ var buttonClickHandler = function(event) {
     }
 };
 
+//function to search for saved city name in api on click
 var savedCityClickHandler = function(event) {
 
     console.log(savedCityEl.textContent);
