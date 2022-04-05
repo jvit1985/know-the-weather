@@ -9,6 +9,7 @@ var currentUvEl = document.querySelector("#current-uv");
 var cardFormEl = document.querySelector("#card-form");
 var date = dayjs().format("MM/DD/YYYY");
 var currentIcon = document.createElement("img");
+var tasks = [];
 
 //Get city name from search input from user
 var convertToLatandLon = function(searchedCityEl) {
@@ -93,16 +94,19 @@ var displayCity = function(city) {
     currentCityEl.textContent = city + " (" + date + ")";
     //create saved city button
     var savedCity = document.createElement("button");
-    savedCity.textContent = "  " + city;
+    savedCity.textContent = city;
     savedCity.classList = "btn btn-secondary btn-block";
+    localStorage.setItem("tasks", JSON.stringify(city));
     //display saved city button to page
     savedCityEl.appendChild(savedCity);
     //reset search for city input field     
     searchedCityEl.value = "";
-}
+};
 
 //function to search for city name in api on click
 var buttonClickHandler = function(event) {
+
+    cardFormEl.textContent = "";
 
     var searchedCity = searchedCityEl.value.trim();
 
@@ -116,8 +120,6 @@ var buttonClickHandler = function(event) {
 
 //function to search for saved city name in api on click
 var savedCityClickHandler = function(event) {
-
-    console.log(savedCityEl);
 
 }
 
