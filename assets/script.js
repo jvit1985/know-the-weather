@@ -8,6 +8,7 @@ var currentHumidityEl = document.querySelector("#current-humidity");
 var currentUvEl = document.querySelector("#current-uv");
 var cardFormEl = document.querySelector("#card-form");
 var date = dayjs().format("MM/DD/YYYY");
+var currentIcon = document.createElement("img");
 
 //Get city name from search input from user
 var convertToLatandLon = function(searchedCityEl) {
@@ -36,6 +37,9 @@ var getCurrentForecast = function(lat, lon) {
     fetch (latAndLon).then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
+                currentIcon.textContent = data.daily[0].weather[0].icon;
+                currentIcon.src = "http://openweathermap.org/img/wn/" + currentIcon.textContent + "@2x.png";
+                currentCityEl.appendChild(currentIcon);
                 currentTempEl.textContent = "Temp: " + data.daily[0].temp.max + " °F";
                 currentWindEl.textContent = "Wind: " + data.daily[0].wind_speed + " MPH";
                 currentHumidityEl.textContent = "Humidity: " + data.daily[0].humidity + " %";
@@ -57,6 +61,9 @@ var getCurrentForecast = function(lat, lon) {
                     var forecastDate = document.createElement("h4");
                     forecastDate.classList = "card-title";
                     forecastDate.textContent = dayjs(tempDate).format("MM/DD/YYYY");
+                    var forecastIcon = document.createElement("img");
+                    forecastIcon.textContent = data.daily[i].weather[0].icon;
+                    forecastIcon.src = "http://openweathermap.org/img/wn/" + forecastIcon.textContent + "@2x.png"
                     var forecastTemp = document.createElement("p");
                     forecastTemp.classList = "card-text";
                     forecastTemp.textContent = "Temp: " + data.daily[i].temp.max + " °F";
@@ -69,6 +76,7 @@ var getCurrentForecast = function(lat, lon) {
                     //append generated data to 5 day forecast cards
                     cardFormEl.appendChild(card);
                     card.appendChild(forecastDate);
+                    card.appendChild(forecastIcon);
                     card.appendChild(forecastTemp);
                     card.appendChild(forecastWind);
                     card.appendChild(forecastHumidity);
@@ -85,7 +93,7 @@ var displayCity = function(city) {
     currentCityEl.textContent = city + " (" + date + ")";
     //create saved city button
     var savedCity = document.createElement("button");
-    savedCity.textContent = city;
+    savedCity.textContent = "  " + city;
     savedCity.classList = "btn btn-secondary btn-block";
     //display saved city button to page
     savedCityEl.appendChild(savedCity);
@@ -109,7 +117,7 @@ var buttonClickHandler = function(event) {
 //function to search for saved city name in api on click
 var savedCityClickHandler = function(event) {
 
-    console.log(savedCityEl.textContent);
+    console.log(savedCityEl);
 
 }
 
