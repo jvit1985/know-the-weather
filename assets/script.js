@@ -92,6 +92,7 @@ var getCurrentForecast = function(lat, lon) {
 };
 
 var displayCity = function(city) {
+    searchedCityEl.textContent="";
     //display city and date
      currentCityEl.textContent = city + " (" + date + ")";
      //push to local storage
@@ -105,7 +106,6 @@ var buttonClickHandler = function(event) {
     cardFormEl.textContent = "";
 
     var searchedCity = searchedCityEl.value.trim();
-    searchedCityEl.textContent = "";
 
     if (searchedCity) {
         convertToLatandLon(searchedCity);
@@ -124,7 +124,6 @@ function displaySearchHistory() {
         savedCity.setAttribute("value", searchHistory[i]);
         savedCity.addEventListener("click", function () {
             convertToLatandLon(searchHistory[i]);
-            console.log(searchHistory[i]);
 
             cardFormEl.textContent = "";
 
