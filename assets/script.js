@@ -9,7 +9,8 @@ var currentUvEl = document.querySelector("#current-uv");
 var cardFormEl = document.querySelector("#card-form");
 var date = dayjs().format("MM/DD/YYYY");
 var currentIcon = document.createElement("img");
-var tasks = [];
+var city = "";
+var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 
 //Get city name from search input from user
 var convertToLatandLon = function(searchedCityEl) {
@@ -92,15 +93,14 @@ var getCurrentForecast = function(lat, lon) {
 var displayCity = function(city) {
     //display city and date
     currentCityEl.textContent = city + " (" + date + ")";
-    //create saved city button
+    // <input class="p-2 btn-block form-input" type="text" id="searched-city"></input>
     var savedCity = document.createElement("button");
     savedCity.textContent = city;
+    searchHistory.push(city);
+    localStorage.setItem("search",JSON.stringify(searchHistory));
     savedCity.classList = "btn btn-secondary btn-block";
-    localStorage.setItem("tasks", JSON.stringify(city));
-    //display saved city button to page
     savedCityEl.appendChild(savedCity);
-    //reset search for city input field     
-    searchedCityEl.value = "";
+    
 };
 
 //function to search for city name in api on click
@@ -112,19 +112,38 @@ var buttonClickHandler = function(event) {
 
     if (searchedCity) {
         convertToLatandLon(searchedCity);
+        // displaySearchHistory();
         
     } else {
         alert("Please enter a valid city");
     }
 };
 
-//function to search for saved city name in api on click
-var savedCityClickHandler = function(event) {
+// function displaySearchHistory() {
+//     savedCityEl.innerHTML = "";
+//     for (let i=0; i < searchHistory.length; i++) {
+//         var savedCity = document.createElement("input");
+//         savedCity.setAttribute("type","text");
+//         savedCity.setAttribute("readonly", true);
+//         savedCity.classList = "btn btn-secondary btn-block";
+//         savedCity.setAttribute("value", searchHistory[i]);
+//         savedCity.addEventListener("click", function () {
+//             convertToLatandLon(savedCity.value);
+//             displayCity(savedCity.value);
+//             cardFormEl.textContent = "";
 
-}
+//         });
+//         //display saved city button to page
+//         savedCityEl.appendChild(savedCity);
+//     };
+// };
+
+// displaySearchHistory();
+
+//function to search for saved city name in api on click
 
 //event listener for search button click
 searchButtonEl.addEventListener("click", buttonClickHandler);
 
 //event listener for stored searches click
-savedCityEl.addEventListener("click", savedCityClickHandler);
+//savedCityEl.addEventListener("click", savedCityClickHandler);
