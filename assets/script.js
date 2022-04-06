@@ -20,8 +20,9 @@ var convertToLatandLon = function(searchedCityEl) {
     .then(function(response) {
         if(response.ok) {
             response.json().then(function(data) {
-                getCurrentForecast(data[0].lat, data[0].lon)
-                displayCity(data[0].name)
+                getCurrentForecast(data[0].lat, data[0].lon);
+                displayCity(data[0].name);
+                displaySearchHistory();
             });
         } else {
             alert("No City Found");
@@ -92,15 +93,10 @@ var getCurrentForecast = function(lat, lon) {
 
 var displayCity = function(city) {
     //display city and date
-    currentCityEl.textContent = city + " (" + date + ")";
-    // <input class="p-2 btn-block form-input" type="text" id="searched-city"></input>
-    var savedCity = document.createElement("button");
-    savedCity.textContent = city;
-    searchHistory.push(city);
-    localStorage.setItem("search",JSON.stringify(searchHistory));
-    savedCity.classList = "btn btn-secondary btn-block";
-    savedCityEl.appendChild(savedCity);
-    
+     currentCityEl.textContent = city + " (" + date + ")";
+     //push to local storage
+     searchHistory.push(city);
+     localStorage.setItem("search",JSON.stringify(searchHistory));
 };
 
 //function to search for city name in api on click
@@ -109,41 +105,37 @@ var buttonClickHandler = function(event) {
     cardFormEl.textContent = "";
 
     var searchedCity = searchedCityEl.value.trim();
+    searchedCityEl.textContent = "";
 
     if (searchedCity) {
         convertToLatandLon(searchedCity);
-        // displaySearchHistory();
         
     } else {
         alert("Please enter a valid city");
     }
 };
 
-// function displaySearchHistory() {
-//     savedCityEl.innerHTML = "";
-//     for (let i=0; i < searchHistory.length; i++) {
-//         var savedCity = document.createElement("input");
-//         savedCity.setAttribute("type","text");
-//         savedCity.setAttribute("readonly", true);
-//         savedCity.classList = "btn btn-secondary btn-block";
-//         savedCity.setAttribute("value", searchHistory[i]);
-//         savedCity.addEventListener("click", function () {
-//             convertToLatandLon(savedCity.value);
-//             displayCity(savedCity.value);
-//             cardFormEl.textContent = "";
+function displaySearchHistory() {
+    savedCityEl.innerHTML = "";
+    for (let i=0; i < searchHistory.length; i++) {
+        var savedCity = document.createElement("input");
+        savedCity.setAttribute("type", "text")
+        savedCity.classList = "btn btn-secondary btn-block";
+        savedCity.setAttribute("value", searchHistory[i]);
+        savedCity.addEventListener("click", function () {
+            convertToLatandLon(searchHistory[i]);
+            console.log(searchHistory[i]);
 
-//         });
-//         //display saved city button to page
-//         savedCityEl.appendChild(savedCity);
-//     };
-// };
+            cardFormEl.textContent = "";
 
-// displaySearchHistory();
+        });
+        //display saved city button to page
+        savedCityEl.appendChild(savedCity);
+    };
+};
 
-//function to search for saved city name in api on click
+displaySearchHistory();
 
 //event listener for search button click
 searchButtonEl.addEventListener("click", buttonClickHandler);
 
-//event listener for stored searches click
-//savedCityEl.addEventListener("click", savedCityClickHandler);
